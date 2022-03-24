@@ -1,0 +1,24 @@
+in:
+  type: mysql
+  host: embulk_mysql_input
+  port: 3306
+  database: input1
+  user: root
+  password: root
+  table: basketballteams
+  incremental: true
+  incremental_columns:
+    - id
+    # - created_at
+out:
+  type: mysql
+  host: embulk_mysql_output
+  port: 3306
+  database: output
+  user: root
+  password: root
+  table: allstars
+  mode: merge
+  # create_table_constraint: 'primary key(id)'
+  # column_options:
+  #   id: {type: 'int auto_increment'}

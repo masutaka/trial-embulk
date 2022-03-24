@@ -5,3 +5,28 @@ services:
     build: .
     image: embulk
     container_name: embulk
+    tty: true
+  mysql_input:
+    image: mysql:5.6
+    container_name: embulk_mysql_input
+    ports:
+      - 3306:3306 # ホストからの接続用
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - mysql_data_input:/var/lib/mysql
+  mysql_output:
+    image: mysql:5.6
+    container_name: embulk_mysql_output
+    ports:
+      - 13306:3306 # ホストからの接続用
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - mysql_data_output:/var/lib/mysql
+
+volumes:
+  mysql_data_input:
+  mysql_data_output:
